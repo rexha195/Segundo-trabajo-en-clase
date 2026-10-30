@@ -1,0 +1,7 @@
+[
+  { "id": 1, "color": "Rojo", "ano": 2020, "fabricante": "Toyota", "tipo": "sedán" },
+  { "id": 2, "color": "Blanco", "ano": 2022, "fabricante": "Nissan", "tipo": "4x4" },
+  { "id": 3, "color": "Negro", "ano": 2019, "fabricante": "Honda", "tipo": "moto" },
+  { "id": 4, "color": "Azul", "ano": 2023, "fabricante": "Ford", "tipo": "4x4" },
+  { "id": 5, "color": "Gris", "ano": 2018, "fabricante": "Hyundai", "tipo": "sedán" }
+]
