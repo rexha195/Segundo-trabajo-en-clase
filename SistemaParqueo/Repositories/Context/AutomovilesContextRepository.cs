@@ -23,15 +23,37 @@ public class AutomovilesContextRepository : IAutomovilesRepository
     {
         var query = _context.PrqAutomoviles.AsQueryable();
 
-        // Búsquedas aproximadas por caracteres
         if (!string.IsNullOrEmpty(color)) query = query.Where(a => a.Color.Contains(color));
         if (!string.IsNullOrEmpty(fabricante)) query = query.Where(a => a.Fabricante.Contains(fabricante));
         if (!string.IsNullOrEmpty(tipo)) query = query.Where(a => a.Tipo.Contains(tipo));
 
-        // Búsquedas exactas o rangos para números
         if (anioInicio.HasValue) query = query.Where(a => a.Ano >= anioInicio.Value);
         if (anioFin.HasValue) query = query.Where(a => a.Ano <= anioFin.Value);
 
         return query.ToList();
+    }
+
+    // --- NUEVOS MÉTODOS PUNTO 9 ---
+
+    public void Insertar(PrqAutomovile automovil)
+    {
+        _context.PrqAutomoviles.Add(automovil);
+        _context.SaveChanges();
+    }
+
+    public void Actualizar(PrqAutomovile automovil)
+    {
+        _context.PrqAutomoviles.Update(automovil);
+        _context.SaveChanges();
+    }
+
+    public void Borrar(int id)
+    {
+        var automovil = _context.PrqAutomoviles.Find(id);
+        if (automovil != null)
+        {
+            _context.PrqAutomoviles.Remove(automovil);
+            _context.SaveChanges();
+        }
     }
 }

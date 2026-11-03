@@ -31,4 +31,28 @@ public class ParqueosContextRepository : IParqueosRepository
 
         return query.ToList();
     }
+
+    // --- NUEVOS MÉTODOS PUNTO 9 ---
+
+    public void Insertar(PrqParqueo parqueo)
+    {
+        _context.PrqParqueos.Add(parqueo);
+        _context.SaveChanges();
+    }
+
+    public void Actualizar(PrqParqueo parqueo)
+    {
+        _context.PrqParqueos.Update(parqueo);
+        _context.SaveChanges();
+    }
+
+    public void Borrar(int id)
+    {
+        var parqueo = _context.PrqParqueos.Find(id);
+        if (parqueo != null)
+        {
+            _context.PrqParqueos.Remove(parqueo);
+            _context.SaveChanges();
+        }
+    }
 }

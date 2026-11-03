@@ -24,14 +24,12 @@ public class IngresosContextRepository : IIngresosRepository
             .FirstOrDefault(i => i.Consecutivo == id);
     }
 
-    // 1. Obtener Precio Por Hora Por Parqueo
     public decimal ObtenerPrecioPorHoraPorParqueo(int idParqueo)
     {
         var parqueo = _context.PrqParqueos.Find(idParqueo);
         return parqueo?.PrecioPorHora ?? 0;
     }
 
-    // 2. Listado por tipo e intervalo de fechas
     public IEnumerable<PrqIngresoautomovile> ObtenerPorTipoYFechas(string tipo, DateTime fechaInicio, DateTime fechaFin)
     {
         var ingresos = _context.PrqIngresoautomoviles
@@ -42,20 +40,18 @@ public class IngresosContextRepository : IIngresosRepository
                         i.FechaHoraEntrada <= fechaFin)
             .ToList();
 
-        // Se debe llamar a la función del punto 1
         foreach (var ingreso in ingresos)
         {
             decimal precio = ObtenerPrecioPorHoraPorParqueo(ingreso.IdParqueo);
             if (ingreso.IdParqueoNavigation != null)
             {
                 ingreso.IdParqueoNavigation.PrecioPorHora = precio;
-                ingreso.ParqueoAsociado = ingreso.IdParqueoNavigation; // Enlaza para calcular el monto a cancelar
+                ingreso.ParqueoAsociado = ingreso.IdParqueoNavigation;
             }
         }
         return ingresos;
     }
 
-    // 3. Listado por provincia e intervalo de fechas
     public IEnumerable<PrqIngresoautomovile> ObtenerPorProvinciaYFechas(string nombreProvincia, DateTime fechaInicio, DateTime fechaFin)
     {
         var ingresos = _context.PrqIngresoautomoviles
@@ -66,16 +62,39 @@ public class IngresosContextRepository : IIngresosRepository
                         i.FechaHoraEntrada <= fechaFin)
             .ToList();
 
-        // Se debe llamar a la función del punto 1
         foreach (var ingreso in ingresos)
         {
             decimal precio = ObtenerPrecioPorHoraPorParqueo(ingreso.IdParqueo);
             if (ingreso.IdParqueoNavigation != null)
             {
                 ingreso.IdParqueoNavigation.PrecioPorHora = precio;
-                ingreso.ParqueoAsociado = ingreso.IdParqueoNavigation; // Enlaza para calcular el monto a cancelar
+                ingreso.ParqueoAsociado = ingreso.IdParqueoNavigation;
             }
         }
         return ingresos;
+    }
+
+    // --- NUEVOS MÉTODOS PUNTO 9 ---
+
+    public void Insertar(PrqIngresoautomovile ingreso)
+    {
+        _context.PrqIngresoautomoviles.Add(ingreso);
+        _context.SaveChanges();
+    }
+
+    public void Actualizar(PrqIngresoautomovile ingreso)
+    {
+        _context.PrqIngresoautomoviles.Update(ingreso);
+        _context.SaveChanges();
+    }
+
+    public void Borrar(int id)
+    {
+        var ingreso = _context.PrqIngresoautomoviles.Find(id);
+        if (ingreso != null)
+        {
+            _context.PrqIngresoautomoviles.Remove(ingreso);
+            _context.SaveChanges();
+        }
     }
 }
