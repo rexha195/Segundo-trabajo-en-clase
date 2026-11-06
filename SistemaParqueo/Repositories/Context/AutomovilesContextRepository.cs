@@ -41,8 +41,11 @@ public class AutomovilesContextRepository : IAutomovilesRepository
         _context.SaveChanges();
     }
 
-    public void Actualizar(PrqAutomovile automovil)
+        public void Actualizar(PrqAutomovile automovil)
     {
+        // Limpiamos cualquier rastro previo en memoria para evitar conflictos de ID
+        _context.ChangeTracker.Clear();
+
         _context.PrqAutomoviles.Update(automovil);
         _context.SaveChanges();
     }
