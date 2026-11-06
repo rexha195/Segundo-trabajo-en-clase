@@ -42,6 +42,7 @@ public class ParqueosContextRepository : IParqueosRepository
 
     public void Actualizar(PrqParqueo parqueo)
     {
+        _context.ChangeTracker.Clear();
         _context.PrqParqueos.Update(parqueo);
         _context.SaveChanges();
     }
