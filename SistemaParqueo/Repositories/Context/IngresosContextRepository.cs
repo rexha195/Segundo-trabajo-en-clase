@@ -84,6 +84,7 @@ public class IngresosContextRepository : IIngresosRepository
 
     public void Actualizar(PrqIngresoautomovile ingreso)
     {
+        _context.ChangeTracker.Clear();
         _context.PrqIngresoautomoviles.Update(ingreso);
         _context.SaveChanges();
     }

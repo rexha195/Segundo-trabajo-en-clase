@@ -11,6 +11,6 @@ public partial class PrqIngresoautomovile
     public DateTime FechaHoraEntrada { get; set; }
     public DateTime? FechaHoraSalida { get; set; }
 
-    public virtual PrqAutomovile IdAutomovilNavigation { get; set; } = null!;
-    public virtual PrqParqueo IdParqueoNavigation { get; set; } = null!;
+    public virtual PrqAutomovile? IdAutomovilNavigation { get; set; }
+    public virtual PrqParqueo? IdParqueoNavigation { get; set; }
 }

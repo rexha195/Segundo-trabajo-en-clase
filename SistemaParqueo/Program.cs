@@ -16,7 +16,12 @@ builder.Services.AddScoped<IAutomovilesRepository, AutomovilesContextRepository>
 builder.Services.AddScoped<IParqueosRepository, ParqueosContextRepository>();
 builder.Services.AddScoped<IIngresosRepository, IngresosContextRepository>();
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+.AddJsonOptions(options =>
+    {
+        // Esto le dice al serializador JSON que ignore las referencias circulares
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 
 var app = builder.Build();
 

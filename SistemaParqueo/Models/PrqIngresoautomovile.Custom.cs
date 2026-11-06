@@ -6,7 +6,7 @@ namespace SistemaParqueo.Models;
 public partial class PrqIngresoautomovile
 {
     [NotMapped]
-    public PrqParqueo ParqueoAsociado { get; set; }
+    public PrqParqueo? ParqueoAsociado { get; set; }
 
     [NotMapped]
     public double? DuracionEstadiaMinutos
